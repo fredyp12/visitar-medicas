@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +29,7 @@ public class Create_visita extends AppCompatActivity {
 
     private String id;
     private Spinner especialidad;
-    private Spinner doector;
+    private Spinner doctor;
     private EditText fecha;
     private EditText hora;
     private Button btnNew;
@@ -52,6 +54,7 @@ public class Create_visita extends AppCompatActivity {
 
         this.activity=this;
         this.especialidad=this.findViewById(R.id.select_especialidadP);
+        this.doctor= this.findViewById(R.id.select_doctorP);
 
 
         FirebaseApp.initializeApp(this);
@@ -91,6 +94,24 @@ public class Create_visita extends AppCompatActivity {
                 }
                 ArrayAdapter <String> adapter= new ArrayAdapter<String>(activity, R.layout.layout_select,optionEspecialiad);
                 especialidad.setAdapter(adapter);
+//                ArrayList medicos= new ArrayList();
+//                String selecSpinner=especialidad.getSelectedItem().toString();
+//                for(DataSnapshot dt: snapshot.getChildren()) {
+//                    medico= dt.getValue(Medico.class);
+//                    if(medico.getEspecialidad()==selecSpinner) {
+//                        medicos.add(medico.getNombre());
+//                    }
+//                }
+//                if(medicos!= null) {
+//                    optionMedico= new String[medicos.size()];
+//                    for(int i=0; i<optionMedico.length; i++) {
+//                        optionMedico[i]= (String) medicos.get(i);
+//                    }
+//                    ArrayAdapter <String> adapter1= new ArrayAdapter<String>(activity, R.layout.layout_select,optionMedico);
+//                    doctor.setAdapter(adapter1);
+//                }
+
+                datSpinner();
             }
             
 
@@ -101,6 +122,48 @@ public class Create_visita extends AppCompatActivity {
             }
         });
 
+        especialidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                datSpinner();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+    public void datSpinner() {
+        databaseReference.child("Medico").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                     if(snapshot.exists()) {
+                         medico= new Medico();
+                         String selecSpinner=especialidad.getSelectedItem().toString();
+                         ArrayList medicos= new ArrayList();
+                         for(DataSnapshot dt: snapshot.getChildren()) {
+                             medico= dt.getValue(Medico.class);
+                             if(medico.getEspecialidad()==selecSpinner) {
+                                 medicos.add(medico.getNombre());
+                             }
+                         }
+                         if(medicos!= null) {
+                             optionMedico= new String[medicos.size()];
+                             for(int i=0; i<optionMedico.length; i++) {
+                                 optionMedico[i]= (String) medicos.get(i);
+                             }
+                             ArrayAdapter <String> adapter1= new ArrayAdapter<String>(activity, R.layout.layout_select,optionMedico);
+                             doctor.setAdapter(adapter1);
+                         }
+                     }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 }
