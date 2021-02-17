@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.EventListener;
+import java.util.UUID;
 
 import static com.example.visitas_medicas.R.layout.layout_select;
 
@@ -93,10 +94,10 @@ public class Create_visita extends AppCompatActivity {
                                 //Insert public Visitas(String id, String paciente, String estado, String fecha, String doctor, String especialidad, String hora)
                                 if(snapshot.child("Visitas").exists()) {
                                     int idVisita= (int) snapshot.child("Visitas").getChildrenCount();
-                                    Visitas visitas= new Visitas((idVisita+1)+"",p.getId(),"POR APROBAR",txtFecha.getText().toString(),m.getId(),m.getEspecialidad(),txtHora.getText().toString());
+                                    Visitas visitas= new Visitas(UUID.randomUUID().toString(),p.getId(),"POR APROBAR",txtFecha.getText().toString(),m.getId(),m.getEspecialidad(),txtHora.getText().toString());
                                     databaseReference.child("Visitas").child(visitas.getId()).setValue(visitas);
                                 }else {
-                                    Visitas visitas= new Visitas("1",p.getId(),"POR APROBAR",txtFecha.getText().toString(),m.getId(),m.getEspecialidad(),txtHora.getText().toString());
+                                    Visitas visitas= new Visitas(UUID.randomUUID().toString(),p.getId(),"POR APROBAR",txtFecha.getText().toString(),m.getId(),m.getEspecialidad(),txtHora.getText().toString());
                                     databaseReference.child("Visitas").child(visitas.getId()).setValue(visitas);
                                 }
                             }
@@ -172,7 +173,7 @@ public class Create_visita extends AppCompatActivity {
                 TimePickerDialog timePickerDialog= new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                        txtHora.setText(1+":"+i1);
+                        txtHora.setText(i+":"+i1);
                     }
                 },
                         hora,minutos,false);
@@ -198,9 +199,9 @@ public class Create_visita extends AppCompatActivity {
                             boolean aux=false;
                             int dat=0;
                             for(int i=0; i<arrayEpecialidad.size();i++) {
-                                if(arrayEpecialidad.get(i)==medico.getEspecialidad()) {
+                                if(arrayEpecialidad.get(i).equals(medico.getEspecialidad())) {
                                     dat++;
-                                    if(dat>1) {
+                                    if(dat>=1) {
                                         aux=true;
                                     }
                                 }
@@ -250,7 +251,7 @@ public class Create_visita extends AppCompatActivity {
                          ArrayList medicos= new ArrayList();
                          for(DataSnapshot dt: snapshot.getChildren()) {
                              medico= dt.getValue(Medico.class);
-                             if(medico.getEspecialidad()==selecSpinner) {
+                             if(medico.getEspecialidad().equalsIgnoreCase(selecSpinner)) {
                                  medicos.add(medico.getNombre());
                              }
                          }

@@ -22,7 +22,7 @@ public class home_admin extends AppCompatActivity {
 
     private Administrador admin = new Administrador();
     private TextView txtusuario;
-    private Button btnMedicos,btnPaciente;
+    private Button btnMedicos,btnPaciente, btnSalir;
     private Intent intent;
 
     @Override
@@ -31,6 +31,7 @@ public class home_admin extends AppCompatActivity {
         setContentView(R.layout.activity_home_admin);
         this.btnMedicos= this.findViewById(R.id.btnMedicos);
         this.btnPaciente= this.findViewById(R.id.btn_pacientes);
+        this.btnSalir= this.findViewById(R.id.brn_salirAdmin);
         recibir();
 
         this.txtusuario= this.findViewById(R.id.txtHome);
@@ -50,6 +51,15 @@ public class home_admin extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        this.btnSalir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent= new Intent(home_admin.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 

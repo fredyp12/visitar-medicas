@@ -25,7 +25,7 @@ import java.util.UUID;
 
 public class Create_medico extends AppCompatActivity {
 
-    private EditText txtId,txtNombre,txtEspecialidad;
+    private EditText txtId,txtNombre,txtEspecialidad, txtPass;
     private Button btnCreate;
     private Medico medico;
     private FirebaseDatabase firebaseDatabase;
@@ -46,6 +46,7 @@ public class Create_medico extends AppCompatActivity {
         this.txtNombre= this.findViewById(R.id.txtNombre);
         this.txtEspecialidad= this.findViewById(R.id.txtEspecialidad);
         this.btnCreate= this.findViewById(R.id.btn_create);
+        this.txtPass= this.findViewById(R.id.txtPass_medico);
 
         FirebaseApp.initializeApp(this);
         this.firebaseDatabase= FirebaseDatabase.getInstance();
@@ -63,6 +64,7 @@ public class Create_medico extends AppCompatActivity {
                     medico.setNombre(txtNombre.getText().toString());
                     medico.setEspecialidad(txtEspecialidad.getText().toString());
                     medico.setContraseña(txtId.getText().toString());
+                    medico.setContraseña(txtPass.getText().toString());
                     medico.setPregunta("pregunta");
                     medico.setRespuesta("Respuesta");
                     databaseReference.child("Medico").child(medico.getId()).setValue(medico);

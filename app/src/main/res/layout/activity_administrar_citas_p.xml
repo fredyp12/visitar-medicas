@@ -20,9 +20,10 @@
         android:id="@+id/btnNewCitaP"
         android:layout_width="348dp"
         android:layout_height="48dp"
-        android:layout_marginTop="276dp"
+        android:layout_marginTop="116dp"
         android:text="agendar cita"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
@@ -30,12 +31,12 @@
         android:id="@+id/layoutCitaP"
         android:layout_width="351dp"
         android:layout_height="302dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="44dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnNewCitaP"
-        app:layout_constraintVertical_bias="1.0"></LinearLayout>
+        app:layout_constraintVertical_bias="0.0"></LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtNombre,txtPass;
     private Button btnLogin;
     private RadioGroup radioGroup;
-    private RadioButton rdAdmin, rdPaciente;
+    private RadioButton rdAdmin, rdPaciente, rdMedico;
     final MainActivity main=this;
+
 
     private boolean login;
     private Intent intent;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         this.radioGroup=this.findViewById(R.id.radioGroup);
         this.rdAdmin=this.findViewById(R.id.rdAdmin);
         this.rdPaciente=this.findViewById(R.id.rdPaciente);
+        this.rdMedico=this.findViewById(R.id.rdMedico);
 
 //        authStateListener = new FirebaseAuth.AuthStateListener() {
 //            @Override
@@ -93,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     if(rdPaciente.isChecked()) {
                         log("Paciente",mdatabase);
+                    }else {
+                        if(rdMedico.isChecked()) {
+                            log("Medico",mdatabase);
+                        }
                     }
                 }
             }
@@ -124,6 +130,12 @@ public class MainActivity extends AppCompatActivity {
                                 intent= new Intent(MainActivity.this,Home_paciente.class);
                                 intent.putExtra("id",txtNombre.getText().toString());
                                 startActivity(intent);
+                            }else {
+                                if(rdMedico.isChecked()) {
+                                    intent= new Intent(MainActivity.this,Home_medico.class);
+                                    intent.putExtra("id",txtNombre.getText().toString());
+                                    startActivity(intent);
+                                }
                             }
                         }
 

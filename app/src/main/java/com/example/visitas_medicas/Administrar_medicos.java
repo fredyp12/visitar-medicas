@@ -56,9 +56,25 @@ public class Administrar_medicos extends AppCompatActivity {
         this.btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent= new Intent(Administrar_medicos.this,Create_medico.class);
-                intent.putExtra("id", adminId);
-                startActivity(intent);
+                table= new TableLayout(activity);
+                databaseReference.child("Medico").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.getChildrenCount()<10) {
+                            intent= new Intent(Administrar_medicos.this,Create_medico.class);
+                            intent.putExtra("id", adminId);
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(activity,"YA NO SE PUEDEN AÑADIR MAS MEDICOS",Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
 
@@ -97,11 +113,9 @@ public class Administrar_medicos extends AppCompatActivity {
                         btnDelete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                layout.removeView(table);
                                 databaseReference.child("Medico").child(idMedico).removeValue();
                                 Toast.makeText(activity,"Medico ELiminado",Toast.LENGTH_LONG).show();
                                 layout.removeView(table);
-                                createTable();
                             }
                         });
                         row.addView(btnDelete);

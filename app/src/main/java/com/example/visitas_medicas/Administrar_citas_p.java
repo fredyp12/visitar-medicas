@@ -71,6 +71,9 @@ public class Administrar_citas_p extends AppCompatActivity {
 
     }
     public void createTable(String id) {
+        table= new TableLayout(activity);
+        layoutTable.addView(table);
+        layoutTable.removeView(table);
         final String p=id;
         databaseReference.child("Visitas").addValueEventListener(new ValueEventListener() {
             @Override
@@ -81,14 +84,14 @@ public class Administrar_citas_p extends AppCompatActivity {
                     for(DataSnapshot dt: snapshot.getChildren()) {
                         visita=dt.getValue(Visitas.class);
 //                        String dat= (String) dt.child("paciente").getValue(); //?¿
-                        Log.d("._.", visita.getId());
-                        if(visita.getPaciente()==p) {
+                        if(visita.getPaciente().equals(p)) {
+                            Log.d("show",visita.getId());
                             btnDelete = new Button(activity);
-                            txtcell=new TextView(activity);
+//                            txtcell=new TextView(activity);
+//                            row= new TableRow(activity);
+//                            visita=dt.getValue(Visitas.class);
+//                            txtcell.setText(visita.getId());
                             row= new TableRow(activity);
-                            visita=dt.getValue(Visitas.class);
-                            txtcell.setText(visita.getId());
-                            row.addView(txtcell);
                             txtcell= new TextView(activity);
                             txtcell.setText(visita.getFecha());
                             row.addView(txtcell);
@@ -104,18 +107,20 @@ public class Administrar_citas_p extends AppCompatActivity {
                             btnDelete.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
+                                    layoutTable.removeView(table);
                                     databaseReference.child("Visitas").child(visita.getId()).removeValue();
                                     Toast.makeText(activity,"visita Medica Cancelada",Toast.LENGTH_LONG).show();
                                     layoutTable.removeView(table);
+                                    txtCitaNP.setText("");
                                     createTable(p);
                                 }
                             });
                             row.addView(btnDelete);
                             table.addView(row);
-                            layoutTable.addView(table);
                             txtCitaNP.setText("");
                         }
                     }
+                    layoutTable.addView(table);
 
                 }else {
                     txtCitaNP = new TextView(activity);
