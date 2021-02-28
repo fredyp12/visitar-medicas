@@ -65,8 +65,8 @@ public class Administrar_medicos extends AppCompatActivity {
                             intent.putExtra("id", adminId);
                             startActivity(intent);
                         }else {
-                            Toast.makeText(activity,"YA NO SE PUEDEN AÑADIR MAS MEDICOS",Toast.LENGTH_LONG).show();
-                        }
+
+                        }Toast.makeText(activity,"YA NO SE PUEDEN AÑADIR MAS MEDICOS",Toast.LENGTH_LONG).show();
                     }
 
                     @Override

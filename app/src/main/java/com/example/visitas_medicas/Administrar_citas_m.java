@@ -114,9 +114,12 @@ public class Administrar_citas_m extends AppCompatActivity {
                                         btnDelete.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    layoutTable.removeView(table);
-                                                    databaseReference.child("Visita").child(idVisita).removeValue();
-                                                    Toast.makeText(activity,"Visita Eliminada",Toast.LENGTH_LONG).show();
+//                                                    layoutTable.removeView(table);
+////                                                    databaseReference.child("Visita").child(idVisita).removeValue();
+////                                                    Toast.makeText(activity,"Visita Eliminada",Toast.LENGTH_LONG).show();
+                                                    intent= new Intent(Administrar_citas_m.this,Info_paciente.class);
+                                                    intent.putExtra("visita_id",idVisita);
+                                                    startActivity(intent);
                                                 }
                                             });
 
@@ -170,7 +173,7 @@ public class Administrar_citas_m extends AppCompatActivity {
                                  final String idVisita=visita.getId();
                                  btnDelete.setOnClickListener(new View.OnClickListener() {
                                      @Override
-                                     public void onClick(View view) {
+                                     public void onClick(View view) { //editar
                                          databaseReference.child("Visitas").addValueEventListener(new ValueEventListener() {
                                              @Override
                                              public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -186,6 +189,7 @@ public class Administrar_citas_m extends AppCompatActivity {
                                                      visita.setEstado("APROBADO");
                                                      databaseReference.child("Visitas").child(idVisita).setValue(visita);
                                                      Toast.makeText(activity,"Visita Agregada",Toast.LENGTH_LONG).show();
+                                                     layoutTable.removeView(table);
                                                  }else{
                                                      Toast.makeText(activity,"NO SE PUEDEN AGENDAR MAS VISITAS POR ESTE DIA",Toast.LENGTH_LONG).show();
                                                  }
