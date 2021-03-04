@@ -1,5 +1,6 @@
 package com.example.visitas_medicas;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -145,7 +146,7 @@ public class Administrar_citas_m extends AppCompatActivity {
      this.btnAdd.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-             databaseReference.child("Visitas").addValueEventListener(new ValueEventListener() {
+             databaseReference.child("Visitas").addListenerForSingleValueEvent(new ValueEventListener() {
                  @Override
                  public void onDataChange(@NonNull DataSnapshot snapshot) {
                      if(!txtfecha_intro.getText().toString().equals("Selecionar fehcha")) {
@@ -155,7 +156,7 @@ public class Administrar_citas_m extends AppCompatActivity {
                          table.addView(txtNothing);
                          layoutTable.addView(table);
                          layoutTable.removeView(table);
-                         for(DataSnapshot dt: snapshot.getChildren()) {
+                         for(final DataSnapshot dt: snapshot.getChildren()) {
                              visita=dt.getValue(Visitas.class);
                              if(visita.getDoctor().equals(id) && txtfecha_intro.getText().toString().equals(visita.getFecha()) && visita.getEstado().equalsIgnoreCase("POR APROBAR")) {
                                  Log.d("estado","._.");
@@ -178,16 +179,23 @@ public class Administrar_citas_m extends AppCompatActivity {
                                              @Override
                                              public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                  int dat=0;
+                                                 Visitas visitas= new Visitas();
                                                  for(DataSnapshot dt: snapshot.getChildren()) {
                                                      Visitas visita1=dt.getValue(Visitas.class);
+                                                     if (visita1.getId().equalsIgnoreCase(idVisita)) {
+                                                         visitas=visita1;
+                                                     }
+
+
                                                      if(visita1.getId().equals(id)) {
                                                          dat++;
                                                      }
                                                  }
                                                  if(dat<10) {
                                                      layoutTable.removeView(table);
-                                                     visita.setEstado("APROBADO");
-                                                     databaseReference.child("Visitas").child(idVisita).setValue(visita);
+                                                     visitas.setEstado("APROBADO");
+                                                     Log.d("._.", visita.getId());
+                                                     databaseReference.child("Visitas").child(idVisita).setValue(visitas);
                                                      Toast.makeText(activity,"Visita Agregada",Toast.LENGTH_LONG).show();
                                                      layoutTable.removeView(table);
                                                  }else{

@@ -20,12 +20,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnConfig"
+        android:id="@+id/btn_reporte_citas"
         android:layout_width="111dp"
         android:layout_height="75dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="12dp"
-        android:text="Button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -38,7 +37,7 @@
         android:text="Pacientes"
         android:textColor="#12B5C8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnConfig" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_reporte_citas" />
 
     <Button
         android:id="@+id/btnMedicos"
@@ -47,7 +46,7 @@
         android:layout_marginStart="112dp"
         android:layout_marginTop="12dp"
         android:text="Button"
-        app:layout_constraintStart_toEndOf="@+id/btnConfig"
+        app:layout_constraintStart_toEndOf="@+id/btn_reporte_citas"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
@@ -110,9 +109,9 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="76dp"
         android:layout_marginTop="64dp"
-        android:text="Administrar"
+        android:text="Citas"
         android:textColor="#12B5C8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtHome" />

@@ -39,4 +39,5 @@ dependencies {
 
     implementation files('libs/droidText.0.4.jar')
 
+    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
 }

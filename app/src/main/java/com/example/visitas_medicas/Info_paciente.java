@@ -168,8 +168,6 @@ public class Info_paciente extends AppCompatActivity {
 
 
                         visita= snapshot.child("Visitas").child(datID).getValue(Visitas.class);
-                        Log.d("._. visita p", visita.getPaciente());
-
                         for(DataSnapshot dt: snapshot.child("Historial_medico").getChildren()) {
                             historial=dt.getValue(Historial_clinico.class);
 
@@ -198,15 +196,6 @@ public class Info_paciente extends AppCompatActivity {
                     }finally {
                         document.close();
                     }
-
-
-
-
-
-
-
-
-
                 }
 
                 @Override
